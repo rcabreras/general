@@ -1,0 +1,115 @@
+﻿@page
+@model EmployeesModel
+@{
+    ViewData["Title"] = "Employees - Raúl Cabrera S.";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>Consultar empleados - Search for employees</h3>
+
+
+    <section id="widget-grid">
+
+        <div class="row">
+
+            <form asp-page-handler="EmployeesById" method="GET">
+
+
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    <div id="wid-id-0">
+
+                        <div>
+
+                            <div class="widget-body-toolbar padding-bottom-0 margin-bottom-5">
+
+                                <div class="row">
+
+                                    <div class="pull-left col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <input class="form-control" id="nameSearchString" name="nameSearchString" placeholder="Employee ID" type="text" >
+                                        </div>
+                                    </div>
+
+                                    <div class="pull-left col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <button id="btnBuscar" type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Get Employees</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="widget-body ">
+                           
+                            <table id="dt_basic" class="table table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>
+
+                                        @*<th><i class="fa fa-fw fa-id-card-o text-muted hidden-xs"></i> Id</th>*@
+
+                                        <th><i class="fa fa-fw fa-map-marker text-muted hidden-xs"></i> Id</th>
+                                        <th class="hidden-xs"><i class="fa fa-fw fa-graduation-cap text-muted hidden-xs"></i> Name</th>
+                                        <th><i class="fa fa-fw fa-toggle-off text-muted hidden-xs"></i> Contract Type Name</th>
+                                        <th>Role ID</th>
+                                        <th>Role Name</th>
+                                        <th>Role Description</th>
+                                        <th>Anual Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        if (Model._employees != null && Model._employees.Count > 0)
+                                        {
+                                            foreach (DTO.Employee e in Model._employees)
+                                            {
+                                                if (e != null)
+                                                {
+                                                    <tr>
+                                                        <td>@e.id</td>
+                                                        <td>@e.name</td>
+                                                        <td>@e.contractTypeName</td>
+                                                        <td>@e.roleId</td>
+                                                        <td>@e.roleName</td>
+                                                        <td>@e.roleDescription</td>
+                                                        <td>@e.AnnualSalary</td>
+                                                    </tr>
+                                                }
+                                            }
+
+                                        }
+                                       
+
+                                    }
+
+                                </tbody>
+
+                            </table>
+                            <div class="padding-right-5 pull-right">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </form>
+        </div>
+
+    </section>
+
+    
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#btnBuscar").click(function (event) {
+                    event.preventDefault();
+                    window.location.href = '/Index?handler=EmployeesById&id=' + $("#nameSearchString").val();
+                });
+
+            });
+        </script>
+   
